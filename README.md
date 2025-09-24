@@ -41,6 +41,7 @@ Before setting up the project, ensure you have the following installed:
 │   ├── package.json     # Dependencies and scripts
 │   ├── tsconfig.json    # TypeScript configuration
 │   └── labelstock.db    # SQLite database file
+├── package.json         # Root monorepo config with workspaces and scripts
 ├── README.md            # This file
 ├── index.html           # Simple static page (optional)
 ├── script.js            # Simple script (optional)
@@ -49,28 +50,24 @@ Before setting up the project, ensure you have the following installed:
 
 ## Setup Instructions
 
-### 1. Clone the Repository
+### Monorepo Setup
+
+The project uses npm workspaces for managing dependencies across frontend and backend. Install dependencies at the root level.
+
+1. Clone the Repository
 
 ```bash
 git clone https://github.com/Cherkasant/labelstock.git
 cd labelstock
 ```
 
-### 2. Install Dependencies
+2. Install Dependencies (Root Level)
 
-#### Backend
 ```bash
-cd labelstock-backend
 npm install
-cd ..
 ```
 
-#### Frontend
-```bash
-cd labelstock
-npm install
-cd ..
-```
+This will install dependencies for the root, frontend, and backend workspaces.
 
 ### 3. Database Setup
 
@@ -100,8 +97,19 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 ### 5. Run the Application
 
-#### Backend
-In a terminal:
+#### Using Monorepo Script (Recommended - Runs Both Simultaneously)
+
+From the root directory:
+
+```bash
+npm run dev
+```
+
+This script uses `concurrently` to start the backend on `http://localhost:3000` and waits for it to be ready before starting the frontend on `http://localhost:3001`. Open your browser to `http://localhost:3001` to view the app.
+
+#### Manual Run (Separate Terminals)
+
+**Backend:**
 ```bash
 cd labelstock-backend
 npm run start:dev  # Development mode with hot reload
@@ -113,16 +121,21 @@ The backend will run on `http://localhost:3000`. The API endpoints include:
 - `/product` - Product CRUD operations
 - `/product/generate-labels` - Generate PDF labels
 
-#### Frontend
+**Frontend:**
 In another terminal:
 ```bash
 cd labelstock
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3001` (or the default Next.js port). Open your browser to view the app.
+The frontend will run on `http://localhost:3001` (or the default Next.js port).
 
 ### 6. Building for Production
+
+#### Root Level
+```bash
+npm run build:workspaces
+```
 
 #### Backend
 ```bash
@@ -148,13 +161,12 @@ npm start  # Or use a production server like Vercel
 
 ## Usage
 
-1. Start the backend server.
-2. Start the frontend server.
-3. Access the frontend in your browser.
-4. Register a new user or log in.
-5. Add products using the ProductForm.
-6. View products in ProductList.
-7. Generate labels for selected products.
+1. Start the application using `npm run dev` from root.
+2. Access the frontend in your browser at `http://localhost:3001`.
+3. Register a new user or log in.
+4. Add products using the ProductForm.
+5. View products in ProductList.
+6. Generate labels for selected products.
 
 ## Troubleshooting
 
@@ -163,6 +175,7 @@ npm start  # Or use a production server like Vercel
 - **CORS Issues**: Backend has CORS enabled for frontend origin; update if needed in `main.ts`.
 - **JWT Errors**: Verify JWT secret matches in backend config.
 - **Build Errors**: Run `npm install` again or check Node version.
+- **Monorepo Issues**: Ensure `npm install` is run at root. If workspaces fail, install dependencies separately in each folder.
 
 ## Contributing
 
