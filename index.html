@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabelStock | Склад и этикетки для вашего магазина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>LabelStock | Склад и этикетки для вашего магазина</h1>
+        <p class="slogan">Простой контроль склада и профессиональная печать этикеток в пару кликов.</p>
+    </header>
+
+    <main>
+        <section id="add-product">
+            <h2>Добавить товар</h2>
+            <form id="product-form">
+                <label for="product-name">Название:</label>
+                <input type="text" id="product-name" required>
+
+                <label for="product-price">Цена:</label>
+                <input type="number" id="product-price" step="0.01" required>
+
+                <label for="product-quantity">Количество:</label>
+                <input type="number" id="product-quantity" required>
+
+                <label for="product-barcode">Штрих-код (опционально):</label>
+                <input type="text" id="product-barcode">
+
+                <button type="submit">Добавить</button>
+            </form>
+        </section>
+
+        <section id="product-list">
+            <h2>Список товаров</h2>
+            <ul id="products-ul"></ul>
+        </section>
+
+        <section id="label-generator">
+            <h2>Генерация этикеток</h2>
+            <p>Выберите товары для печати этикеток:</p>
+            <button id="generate-labels">Генерировать этикетки</button>
+            <div id="labels-preview"></div>
+            <button id="print-labels" style="display: none;">Печать</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
